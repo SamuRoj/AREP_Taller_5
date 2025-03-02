@@ -26,6 +26,15 @@ public class PropertyController {
         return ResponseEntity.ok(propertyService.getAllProperties());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Property> getPropertyById(@PathVariable long id){
+        try {
+            return ResponseEntity.ok(propertyService.getPropertyById(id));
+        } catch (PropertyNotFound e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/address")
     public ResponseEntity<Iterable<Property>> filterByAddress(@RequestParam("address") String address){
         return ResponseEntity.ok(propertyService.filterPropertiesByAddress(address));
@@ -41,20 +50,11 @@ public class PropertyController {
         return ResponseEntity.ok(propertyService.filterPropertiesBySize(size));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Property> getPropertyById(@PathVariable long id){
-        try {
-            return ResponseEntity.ok(propertyService.getPropertyById(id));
-        } catch (PropertyNotFound e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @PostMapping
     public ResponseEntity<String> createProperty(@RequestBody PropertyDto propertyDto){
         Property newProperty = propertyService.createProperty(propertyDto);
         URI uri = URI.create("/properties/" + newProperty.getId());
-        return ResponseEntity.created(uri).body("Created");
+        return ResponseEntity.created(uri).body("/properties/" + newProperty.getId());
     }
 
     @PutMapping("/{id}")
