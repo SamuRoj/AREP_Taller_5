@@ -1,7 +1,7 @@
 api = (
     function() {
         const getAllProperties = () => {
-            return fetch("http://localhost:8080/properties", {
+            return fetch("/properties", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -10,7 +10,7 @@ api = (
         }
     
         const getPropertyById = (id) => {
-            return fetch("http://localhost:8080/properties/" + id, {
+            return fetch("/properties/" + id, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -19,7 +19,7 @@ api = (
         }
     
         const filterByAddress = (address) => {
-            return fetch("http://localhost:8080/properties/address?address=" + address, {
+            return fetch("/properties/address?address=" + address, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json" 
@@ -28,7 +28,7 @@ api = (
         }
     
         const filterByPrice = (price) => {
-            return fetch("http://localhost:8080/properties/price?price=" + price, {
+            return fetch("/properties/price?price=" + price, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -37,7 +37,7 @@ api = (
         }
     
         const filterBySize = (size) => {
-            return fetch("http://localhost:8080/properties/size?size=" + size, {
+            return fetch("/properties/size?size=" + size, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -46,7 +46,7 @@ api = (
         }
     
         const createProperty = (data) =>  {
-            return fetch("http://localhost:8080/properties", {
+            return fetch("/properties", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -56,7 +56,7 @@ api = (
         }
     
         const updateProperty = (id, data) => {
-            return fetch("http://localhost:8080/properties/" + id, {
+            return fetch("/properties/" + id, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -66,7 +66,7 @@ api = (
         }
     
         const deleteProperty = (id) => {
-            return fetch("http://localhost:8080/properties/" + id, {
+            return fetch("/properties/" + id, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"

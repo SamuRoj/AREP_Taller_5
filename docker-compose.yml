@@ -1,0 +1,30 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: properties_app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/properties
+      SPRING_DATASOURCE_USERNAME: userProperty
+      SPRING_DATASOURCE_PASSWORD: secretProperty
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    container_name: properties_db
+    environment:
+      MYSQL_ROOT_PASSWORD: secretProperty
+      MYSQL_DATABASE: properties
+      MYSQL_USER: userProperty
+      MYSQL_PASSWORD: secretProperty
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql-data:
