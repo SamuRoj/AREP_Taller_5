@@ -147,30 +147,30 @@ http://localhost:8080/index.html
 
 ### Classes
 
-**PropertyApplication:** A class that initiates and sets up the entire application. 
-**PropertyController:** Application that handles incoming requests related to real estate properties. Acts as an 
+* **PropertyApplication:** A class that initiates and sets up the entire application. 
+* **PropertyController:** Application that handles incoming requests related to real estate properties. Acts as an 
 interface between the client and the backend logic. 
-**PropertyDto:** It's used to transfer property data between layers of an application, in this case the controller, the
+* **PropertyDto:** It's used to transfer property data between layers of an application, in this case the controller, the
 service and the model.
-**PropertyNotFound:** Exception showing that the requested property could not be found in the database.
-**Property:** Entity that represents a real-world property with some of his features like the address, price, size and
+* **PropertyNotFound:** Exception showing that the requested property could not be found in the database.
+* **Property:** Entity that represents a real-world property with some of his features like the address, price, size and
 description inside the application.
-**PropertyRepository:** Component responsible for managing the data access layer related to properties, handles database
+* **PropertyRepository:** Component responsible for managing the data access layer related to properties, handles database
 operations. 
-**PropertyService:** Contains the business logic related to properties. It acts as an intermediary between the 
+* **PropertyService:** Contains the business logic related to properties. It acts as an intermediary between the 
 controller and the repository.
 
 ### Deployment Diagram
 
 ![DeploymentDiagram.png](src/main/resources/img/DeploymentDiagram.png)
 
-**EC2 Instances:** Virtual servers provided by Amazon Web Services (AWS) that allow you to run applications and services
+* **EC2 Instances:** Virtual servers provided by Amazon Web Services (AWS) that allow you to run applications and services
 in the cloud.
-**Docker Engine:** Software platform that enables developers to build, deploy and run applications inside containers.
-**MySql Container:** Instance of the MySQL database management system, deployed with Docker.
-**Backend Container:** Container with the main application that handles the server-side logic and data processing for 
+* **Docker Engine:** Software platform that enables developers to build, deploy and run applications inside containers.
+* **MySql Container:** Instance of the MySQL database management system, deployed with Docker.
+* **Backend Container:** Container with the main application that handles the server-side logic and data processing for 
 the property listings.
-**HTML, CSS and JS:** Files required to render the webpage in the client browser. 
+* **HTML, CSS and JS:** Files required to render the webpage in the client browser. 
 
 ## Docker and AWS Deployment
 
@@ -199,14 +199,14 @@ database.
 
 ## Running the tests
 
-**Note:** To execute them properly a running container with a mysql image needs to be running locally, it 
-can be done with the following command:
+**Note:** To execute them properly run a container with a mysql image  locally, it  can be done with the following 
+command:
 
 ```
 docker run --name mysqlpropertydb -e MYSQL_ROOT_PASSWORD=secretProperty -e MYSQL_DATABASE=properties -e MYSQL_USER=userProperty -e MYSQL_PASSWORD=secretProperty -p 3306:3306 -d mysql:latest
 ```
 
-- Execute them by running the following command:
+- Execute the tests by running the following command:
 
 ```
 mvn test
