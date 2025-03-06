@@ -69,26 +69,20 @@ git clone https://github.com/SamuRoj/AREP_Taller_5.git
 cd AREP_Taller_5
 ```
 
-3. Levantar antes base de datos con Docker:
-
-```
-mvn clean install
-```
-
-4. Create the required containers with the following command:
+3. Create the required containers with the following command:
 
 ```
 docker-compose up -d
 ```
 
-4.1 **Another method:** Run a container with a mysql image, it can be done with the following command and wait
+3.1 **Another method:** Run a container with a mysql image, it can be done with the following command and wait
 for it to be completely deployed to then execute the main app (PropertyApplication):
 
 ```
 docker run --name mysqlpropertydb -e MYSQL_ROOT_PASSWORD=secretProperty -e MYSQL_DATABASE=properties -e MYSQL_USER=userProperty -e MYSQL_PASSWORD=secretProperty -p 3306:3306 -d mysql:latest
 ```
 
-5. Once the application is running, open your web browser and visit:
+4. Once the application is running, open your web browser and visit:
 
 ```
 http://localhost:8080/index.html
