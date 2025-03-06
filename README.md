@@ -45,6 +45,16 @@ git --version
 
 - If Git is not installed, download it from the official Git [website](https://git-scm.com/downloads).
 
+### 4. Docker
+
+- To check if Docker is installed, run:
+
+```
+docker --version
+```
+
+- If Docker is not installed, download it from the official Docker [website](https://www.docker.com/products/docker-desktop/).
+
 ### Installing and deploying locally
 
 1. Clone the repository to your local machine using Git.
@@ -86,7 +96,57 @@ http://localhost:8080/index.html
 
 ## Features of the application
 
+**Note:** {springurl} represents the following string "http://localhost:8080"
 
+**Get all properties:** Retrieves all properties stored in the database.
+
+**Endpoint:** GET /properties
+
+![Get_All_Properties.png](src/main/resources/img/Get_All_Properties.png)
+
+**Get property by id:** Retrieves a specific property by its ID. 
+
+**Endpoint:** GET /properties/{id}
+
+![Get_Property_By_Id.png](src/main/resources/img/Get_Property_By_Id.png)
+
+**Filter property by address:** Returns properties that match the given address.
+
+**Endpoint:** GET /properties/address?address=
+
+![Filter_By_Address.png](src/main/resources/img/Filter_By_Address.png)
+
+**Filter property by price:** Returns properties that match the given price.
+
+**Endpoint:** GET /properties/price?price=
+
+![Filter_By_Price.png](src/main/resources/img/Filter_By_Price.png)
+
+**Filter property by size:** Returns properties that match the given size.
+
+**Endpoint:** GET /properties/size?size=
+
+![Filter_By_Size.png](src/main/resources/img/Filter_By_Size.png)
+
+**Create a property:** Adds a new property to the database.
+
+**Endpoint:** POST /properties
+
+![Create_Property.png](src/main/resources/img/Create_Property.png)
+
+**Update a property:** Updates an existing property’s details.
+
+**Endpoint:** PUT /properties/{id}
+
+![Update_Property.png](src/main/resources/img/Update_Property.png)
+
+**Delete a property:** Deletes a property from the database.
+
+**Endpoint:** DELETE /properties/{id}
+
+![Delete_Property.png](src/main/resources/img/Delete_Property.png)
+
+![After_Delete.png](src/main/resources/img/After_Delete.png)
 
 ## Architecture
 
@@ -105,7 +165,7 @@ http://localhost:8080/index.html
 │   │               │
 │   │               ├───dto # Maps the values of the user into a data transfer object
 │   │               │       PropertyDto.java
-│   │               │   
+│   │               │
 │   │               ├───exception # Custom exception to handle errors
 │   │               │       PropertyNotFound.java
 │   │               │
@@ -118,27 +178,44 @@ http://localhost:8080/index.html
 │   │               └───service # Logic of each endpoint
 │   │                       PropertyService.java
 │   │
-│   └───resources # Setup of the application
-│       │   application.properties
+│   └───resources 
+│       │   application.properties # Setup of the application
 │       │
-│       ├───img 
+│       ├───img # Images used in the README
+│       │       After_Delete.png
+│       │       ClassDiagram.png
+│       │       Create_Property.png
+│       │       Delete_Property.png
+│       │       DeploymentDiagram.png
+│       │       Filter_By_Address.png
+│       │       Filter_By_Price.png
+│       │       Filter_By_Size.png
+│       │       Get_All_Properties.png
+│       │       Get_Property_By_Id.png
+│       │       PropertyServiceTests.png
+│       │       Update_Property.png
+│       │
 │       ├───static # Static files that will be served to the user. 
 │       │       api.js
 │       │       index.html
 │       │       script.js
 │       │       styles.css
 │       │
-│       └───vid
+│       └───vid # Videos used in the README
 │               AWS_Test.gif
 │               Docker_Hub_Upload.gif
+│               Local_Demo.gif
 │               mysql_AWS.gif
 │
 └───test
-   └───java
-      └───eci
-         └───arep
-            └───property # Unit tests
-               PropertyApplicationTests.java
+    └───java
+        └───eci
+            └───arep
+                └───property
+                    │   PropertyApplicationTests.java
+                    │
+                    └───service # Unit tests for the service
+                            PropertyServiceTests.java
 ```
 
 ### Class Diagram
@@ -178,22 +255,41 @@ the property listings.
 
 Demo that shows the app running locally.
 
+![Local_Demo.gif](src/main/resources/vid/Local_Demo.gif)
+
 ### Video with Dockerhub and AWS deployment working
 
 This is a demo that shows the deployment of the image on DockerHub, the virtual machine used in AWS, the creation
 of the container and the access to the server through the virtual machine showing all the features included in the
 web application.
 
-1. Video of the creation of an Amazon EC2 instance and a MySql container
+1. Video of the creation of an Amazon EC2 instance and a MySql container, commands used:
+
+```
+sudo yum update -y
+sudo yum install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+docker run --name mysqlpropertydb -e MYSQL_ROOT_PASSWORD=secretProperty -e MYSQL_DATABASE=properties -e MYSQL_USER=userProperty -e MYSQL_PASSWORD=secretProperty -p 3306:3306 -d mysql:latest
+```
 
 ![mysql_AWS.gif](src/main/resources/vid/mysql_AWS.gif)
 
 2. Uploading the local image to Docker.
 
+**Note:** The steps in this video just work when the local instance is connected properly to the Amazon Ec2 instance
+with the mysql image. 
+
 ![Docker_Hub_Upload.gif](src/main/resources/vid/Docker_Hub_Upload.gif)
 
 3. Testing the functionality of the app in two Amazon EC2 instances, one for the backend and the other for the
 database. 
+
+```
+docker run -d -p 8080:8080 --name propertiesapp samuroj/springdbtaller5
+```
+
+**Note:** This command may not work because the IP and url of the database in AWS is constanly changing. 
 
 ![AWS_Test.gif](src/main/resources/vid/AWS_Test.gif)
 
