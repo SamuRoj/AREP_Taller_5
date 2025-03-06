@@ -69,20 +69,20 @@ git clone https://github.com/SamuRoj/AREP_Taller_5.git
 cd AREP_Taller_5
 ```
 
-3. Create the required containers with the following command:
-
-```
-docker-compose up -d
-```
-
-3.1 **Another method:** Run a container with a mysql image, it can be done with the following command and wait
-for it to be completely deployed to then execute the main app (PropertyApplication):
+3. Run a container with a mysql image, it can be done with the following command and wait for it to be completely 
+deployed.
 
 ```
 docker run --name mysqlpropertydb -e MYSQL_ROOT_PASSWORD=secretProperty -e MYSQL_DATABASE=properties -e MYSQL_USER=userProperty -e MYSQL_PASSWORD=secretProperty -p 3306:3306 -d mysql:latest
 ```
 
-4. Once the application is running, open your web browser and visit:
+4. Once the container is completely running, execute the next command:
+
+```
+mvn spring-boot:run
+```
+
+5. Once the application is running, open your web browser and visit:
 
 ```
 http://localhost:8080/index.html
